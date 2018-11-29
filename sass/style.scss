@@ -1,0 +1,123 @@
+* {
+    box-sizing: border-box;
+    margin: 0 auto;
+    padding: 0;
+    background-color: #12056b;
+}
+
+header {
+    text-align: center;
+}
+
+header h1 {
+    padding: 20px;
+    color: #fff;
+}
+
+.startBtn {
+    text-align: center;
+    display: block;
+}
+
+.startBtn button {
+    width: 200px;
+    height: 50px;
+    border-radius: 50px;
+    background-color: #1e33ed;
+    outline: none;
+    color: #fff;
+    font-size: 20px;
+    border: none;
+}
+
+.reset {
+    text-align: center;
+    margin: 5px;
+}
+
+.reset button {
+    color: #fff;
+    background-color: red;
+    font-size: 20px;
+    border: none;
+    border-radius: 10px;
+    padding: 10px;
+    outline: none;
+}
+
+#rounds {
+    text-align: center;
+    font-size: 20px;
+
+}
+
+#rounds p {
+    color: #fff;
+    font-size: 25px;
+}
+
+.score {
+    text-align: center;
+    margin: 20px auto;
+    border: 2px solid #ff0026;
+    width: 400px;
+    border-radius: 20px;
+    padding: 20px 20px;
+    font-size: 40px;
+    background-color: #0f4e91;
+    color: #fff;
+    position: relative;
+}
+
+#tabel {
+    background-color: #ff0026;
+    width: 120px;
+    padding: 10px 10px;
+    font-size: 30px;
+    border-radius: 10px;
+}
+
+.userLabel {
+    position: absolute;
+    top: 35px;
+    left: -60px
+}
+
+.comLabel {
+    position: absolute;
+    top: 35px;
+    right: -60px
+}
+
+.score span {
+    font-size: 80px;
+    background-color: #0f4e91;
+    padding: 20px;
+}
+
+#result p {
+    text-align: center;
+    font-size: 30px;
+    color: #fff;
+}
+
+.btnAll {
+    text-align: center;
+}
+
+.btnAll .choice {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    margin: 10px;
+    font-size: 25px;
+    background-color: #0f4e91;
+    color: #fff;
+    outline: none;
+}
+
+#message {
+    text-align: center;
+    color: #fff;
+    font-size: 25px;
+}
