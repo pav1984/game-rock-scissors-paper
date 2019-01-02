@@ -1,43 +1,83 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="css/style.css">
-    <title>Game</title>
+    <title>Document</title>
 </head>
-
 <body>
-    <header>
-        <h1>Kamień Nożyce Papier</h1>
-    </header>
-    <div class="startBtn">
-        <button>New Game</button>
-    </div>
-    <div class="reset">
-        <button>Reset</button>
-    </div>
-    <div id="rounds">
-        <p></p>
-    </div>
-    <div class="score">
-        <div class="userLabel" id="tabel">User</div>
-        <div class="comLabel" id="tabel">Comp</div>
-        <span id="userScore">0</span>:<span id=compScore>0</span>
-    </div>
-    <div id="result">
-        <p>Paper cover Rock You Win!!!</p>
-    </div>
-    <div class="btnAll">
-        <button class="choice" id="r">Rock</button>
-        <button class="choice" id="s">Scissors</button>
-        <button class="choice" id="p">Paper</button>
-    </div>
-    <p id="message">Make Your Move !!!</p>
+<h1>ROCK-SCISSORS-PAPER</h1>
 
-    <script src="js/script.js"></script>
+<div>
+    <button class="new-game" id="newGame">NEW GAME</button>
+</div>
+
+<div id="infoRounds"></div>
+<button class="btn player-move" data-move="rock">Rock</button>
+<button class="btn player-move" data-move="scissors">Scissors</button>
+<button class="btn player-move" data-move="paper">Paper</button>
+<div class="panel-left">
+    <h3>Wyniki gry</h3>
+    <p class="choice"></p>
+    <p><span data-summary="your-choice"></span></p>
+    <p>COMPUTER</p>
+    <p><span data-summary="ai-choice"></span></p>
+    <h2>Winner <span data-summary="who-win"></span></h2>
+
+</div>
+<div id="output">
+<h3>Aktualne wyniki</h3>
+<p class="numbers">liczba gier: <span>0</span></p>
+<p class="wins">wygranych: <span>0</span></p>
+<p class="losses">przegranych: <span>0</span></p>
+<p class="draws">remisów: <span>0</span></p>
+
+</div>
+
+<div class="overlay" id="modal-overlay">
+    <div class="modal" id="modal-show">
+        <a href="#" class="close">x</a>
+        <header>Game Over</header>
+        <div class="content">
+            <p></p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Number of Rounds</th>
+                        <th>Player move</th>
+                        <th>Computer move</th>
+                        <th>Round winner</th>
+                        <th>Player - Computer</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="modal" id="modal-warning">
+        <a href="#" class="close">x</a>
+        <header>End of the game</header>
+        <div class="content">
+            <p></p>
+        </div>
+    </div>
+    <div class="modal" id="modal-new-game">
+        <a href="#" class="close">x</a>
+        <header>Start new game</header><br>
+        <div class="content">
+            <form>
+                Player name:<br>
+                <input type="text" name="firstname" required><br><br>
+                Number Of Rounds<br>
+                <input type="number" name="rounds" min="1" required><br><br>
+                <button class="new-game" type="submit" id="start">START</button>
+            </form>
+        </div>
+    </div>
+</div>
+  <script src="js/script.js"></script>
 </body>
-
 </html>
