@@ -70,6 +70,7 @@ function playerOption () {
         computerWins: game.losses
     });
     table();
+    winner();
 }
 
  function table () {
@@ -87,8 +88,22 @@ function playerOption () {
     }
      if (params.numberRounds === 0) {
          showModal('#modal-show');
+
      }
 }
+function winner () {
+
+    if(game.wins > game.losses) {
+    document.querySelector('#modal-show .content p').innerHTML = `<span> ${params.playerName} ( ${game.wins} - ${game.losses} ) Computer </span><br><p class='winner'>${params.playerName} WON THE ENTIRE GAME !</p>`}
+      else if (game.wins < game.losses) {
+          document.querySelector('#modal-show .content p').innerHTML = `<span> ${params.playerName} ( ${game.wins} - ${game.losses} ) Computer </span><br><p class='winner'>${params.playerName} LOST THE ENTIRE GAME !</p>`
+      } else {
+        document.querySelector('#modal-show .content p').innerHTML = `<span> ${params.playerName} ( ${game.wins} - ${game.losses} ) Computer </span><br><p class='winner'>${params.playerName} DRAW!!!</p>`
+      }
+    
+}
+
+
 // FUNKCJA WYBOR KOMPUTERA
 function computerChoice() {
     var aiChoice = buttons[Math.floor(Math.random() * 3)].dataset.move;
