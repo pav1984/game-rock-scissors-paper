@@ -1,24 +1,25 @@
 'use strict';
 
-//Referencje Html
+//REFERENCJE HTML
 
 var btnStart = document.querySelector('#newGame');
 var infoRounds = document.querySelector('#infoRounds');
-//var result = document.querySelector('#result');
 var output = document.querySelector('#output');
 var modalBtnStart = document.querySelector('#start')
 var buttons = document.querySelectorAll('.player-move');
 var choice = document.querySelector('.choice');
-var params = {
- progress:[],
- playerName:'',
- gameResult: '',
- numberRounds:0,
- play: false,
- playerMove:'',
- computerMove:''
 
+//PARAMETRY GRY
+
+var params = {
+    progress: [],
+    playerName: '',
+    numberRounds: 0,
+    play: false,
+    playerMove: '',
+    computerMove: ''
 }
+
 var game = {
     numbers: 0,
     wins: 0,
@@ -26,41 +27,48 @@ var game = {
     draws: 0,
 }
 
-function newGame () {
+// FUNKCJA ROZPOCZECIA GRY
+
+function newGame() {
     document.querySelector('input[name="firstname"]').value = '';
     document.querySelector('input[name="rounds"]').value = '';
     showModal('#modal-new-game');
+    clearTable();
 }
 //FUNKCJA DLA POCZATKOWEGO MODUAL
-function modalStart (e) {
+
+function modalStart(e) {
     e.preventDefault();
-    document.querySelector('p.numbers span').textContent = game.numbers = 0; 
+    document.querySelector('p.numbers span').textContent = game.numbers = 0;
     document.querySelector('p.wins span').textContent = game.wins = 0;
     document.querySelector('p.losses span').textContent = game.losses = 0;
     document.querySelector('p.draws span').textContent = game.draws = 0;
     document.querySelector('[data-summary="who-win"]').textContent = '';
     document.querySelector('[data-summary="your-choice"]').textContent = '';
     document.querySelector('[data-summary="ai-choice"]').textContent = '';
-    params.playerName = document.querySelector('input[name="firstname"]').value;
+   if (!isNaN(params.playerName = document.querySelector('input[name="firstname"]').value)){
+       return alert('You Have To Give Your Name!!!')
+   };
     params.numberRounds = document.querySelector('input[name="rounds"]').value;
-    infoRounds.innerHTML = `${params.numberRounds} Rundy zostaly do rozegrania`
+    infoRounds.innerHTML = `${params.numberRounds} Rounds to the End of the Game`
     params.play = true;
     document.querySelector('#modal-overlay').classList.remove('show');
     choice.innerHTML = params.playerName.toUpperCase();
 }
 
-//FUNKCJA WYBORU GRACZA KAMIEN NOZYCE PAPIER
-function playerOption () {
+//FUNKCJA GŁÓWNA + WYBÓR GRACZA
+
+function playerOption() {
     if (!params.play || params.numberRounds === 0) {
         showModal('#modal-warning');
-        document.querySelector('#modal-warning .content p').innerHTML = 'Please press the NEW GAME button!';
+        document.querySelector('#modal-warning .content p').innerHTML = 'Please Start New Game';
         return;
     }
     params.playerMove = this.dataset.move;
     params.computerMove = computerChoice();
     var resultRound = gameResult(params.playerMove, params.computerMove);
-    infoRounds.innerHTML = `${--params.numberRounds} Rundy zostaly do rozegrania`
-    showResult(params.playerMove,params.computerMove,resultRound);
+    infoRounds.innerHTML = `${--params.numberRounds} Rounds to the End of the Game`
+    showResult(params.playerMove, params.computerMove, resultRound);
     params.progress = [];
     params.progress.push({
         playerChoice: params.playerMove,
@@ -73,44 +81,58 @@ function playerOption () {
     winner();
 }
 
- function table () {
+//FUNKCJA TWORZENIA WYNIKÓW W TABELI
+
+function table() {
     for (var i = 0; i < params.progress.length; i++) {
         var row = document.createElement('tr');
-        var strHtml = `<td> ${game.numbers} </td>
+        var rowContent = `<td> ${game.numbers} </td>
       <td> ${params.progress[i].playerChoice} </td>
       <td> ${params.progress[i].computerChoice} </td>
       <td> ${params.progress[i].winner} </td>
       <td> ${params.progress[i].playerWins} - ${params.progress[i].computerWins} </td>`
 
-        row.innerHTML = strHtml;
-        document.querySelector('tbody').appendChild(row);
-        console.log(params.progress[i]);
+        row.innerHTML = rowContent;
+        document.querySelector('tbody').appendChild(row);;
     }
-     if (params.numberRounds === 0) {
-         showModal('#modal-show');
+    if (params.numberRounds === 0) {
+        showModal('#modal-show');
 
-     }
-}
-function winner () {
+    }
+};
 
-    if(game.wins > game.losses) {
-    document.querySelector('#modal-show .content p').innerHTML = `<span> ${params.playerName} ( ${game.wins} - ${game.losses} ) Computer </span><br><p class='winner'>${params.playerName} WON THE ENTIRE GAME !</p>`}
-      else if (game.wins < game.losses) {
-          document.querySelector('#modal-show .content p').innerHTML = `<span> ${params.playerName} ( ${game.wins} - ${game.losses} ) Computer </span><br><p class='winner'>${params.playerName} LOST THE ENTIRE GAME !</p>`
-      } else {
-        document.querySelector('#modal-show .content p').innerHTML = `<span> ${params.playerName} ( ${game.wins} - ${game.losses} ) Computer </span><br><p class='winner'>${params.playerName} DRAW!!!</p>`
-      }
-    
-}
+//FUNKCJA PUBLIKACJI WYNKOW W MODUAL KONCOWYM
 
+function winner() {
+    if (game.wins > game.losses) {
+        document.querySelector('#modal-show .content p').innerHTML = `<span style= "color: green"> ${params.playerName} ( ${game.wins} - ${game.losses} ) Computer </span><br><p style= "color: green">${params.playerName} WON THE GAME!!! :)</p>`
+    } else if (game.wins < game.losses) {
+        document.querySelector('#modal-show .content p').innerHTML = `<span style= "color: #FF0000"> ${params.playerName} ( ${game.wins} - ${game.losses} ) Computer </span><br><p style= "color: #FF0000">${params.playerName} LOST THE GAME!!! :( </p>`
+    } else {
+        document.querySelector('#modal-show .content p').innerHTML = `<span style= "color: gray"> ${params.playerName} ( ${game.wins} - ${game.losses} ) Computer </span><br><p style= "color: gray"> IT IS A DRAW!!! :| TRY AGAIN !</p>`
+    }
+
+};
+
+// FUNKCJA CZYSZCZENIA TABELI Z WYNIKAMI
+
+function clearTable() {
+    var table = document.getElementById('myTable');
+    var rowNumbers = table.rows.length;
+    for (var i = 1; i < rowNumbers; i++) {
+        table.deleteRow(1);
+    }
+};
 
 // FUNKCJA WYBOR KOMPUTERA
+
 function computerChoice() {
     var aiChoice = buttons[Math.floor(Math.random() * 3)].dataset.move;
     return aiChoice;
 };
 
 // FUNKCJA POROWNANIE WYBOROW
+
 function gameResult(player, ai) {
     if (player === ai) {
         return 'draw'
@@ -119,64 +141,44 @@ function gameResult(player, ai) {
     } else {
         return 'losse'
     }
-}
+};
 
-//FUNKCJA PUBLIKACJA WYNKOW
-function showResult(user,ai,result) {
-    document.querySelector('[data-summary="your-choice"]').textContent = user;
+//FUNKCJA PUBLIKACJI AKTUALNYCH WYNIKOW NA STRONIE
 
-    document.querySelector('[data-summary="ai-choice"]').textContent = ai;
-    
+function showResult(user, ai, result) {
+    document.querySelector('[data-summary="your-choice"]').textContent = `played ${user.toUpperCase()}`;
+    document.querySelector('[data-summary="ai-choice"]').textContent = `played ${ai.toUpperCase()}`;
     document.querySelector('p.numbers span').textContent = ++game.numbers;
 
     if (result === "win") {
         document.querySelector('p.wins span').textContent = ++game.wins;
-        document.querySelector('[data-summary="who-win"]').textContent = "Ty wygrałeś!!!!"
+        document.querySelector('[data-summary="who-win"]').textContent = "YOU WIN!!! :)"
         document.querySelector('[data-summary="who-win"]').style.color = "green";
     } else if (result === "losse") {
         document.querySelector('p.losses span').textContent = ++game.losses;
-        document.querySelector('[data-summary="who-win"]').textContent = "Komputer wygrał :("
+        document.querySelector('[data-summary="who-win"]').textContent = "YOU LOSE. :("
         document.querySelector('[data-summary="who-win"]').style.color = "red";
     } else {
         document.querySelector('p.draws span').textContent = ++game.draws;
-        document.querySelector('[data-summary="who-win"]').textContent = "Remis :\\"
+        document.querySelector('[data-summary="who-win"]').textContent = "DRAW. :|"
         document.querySelector('[data-summary="who-win"]').style.color = "gray";
     }
 
-}
-
-
-
-
-
-
-
-
-
-
-
+};
 
 //NASLUCHIWACZE
-btnStart.addEventListener('click',newGame);
+
+btnStart.addEventListener('click', newGame);
 modalBtnStart.parentElement.addEventListener('submit', modalStart);
-buttons.forEach(button => button.addEventListener('click',playerOption));
-
-
-
-
-
-
-
-
-
-
-
-
+buttons.forEach(button => button.addEventListener('click', playerOption));
 
 //MODUALS
+
 var modals = document.querySelectorAll('.modal');
+
 //FUNCKJA POKAZUJACA MODUAL
-function showModal (idModal) {
+
+function showModal(idModal) {
     for (var i = 0; i < modals.length; i++) {
         modals[i].classList.remove('show');
     };
@@ -184,56 +186,42 @@ function showModal (idModal) {
     document.querySelector('#modal-overlay').classList.add('show');
 };
 //FUNKCJA UKRYWAJACA MODUAL
-function hideModal (event) {
+
+function hideModal(event) {
     event.preventDefault();
     document.querySelector('#modal-overlay').classList.remove('show');
 };
 // ZAMYKANIE MODUAL KRZYZYK I NACISNIECIE W BODY
-var closeButtons = document.querySelectorAll('.modal .close');
 
+var closeButtons = document.querySelectorAll('.modal .close');
 for (var i = 0; i < closeButtons.length; i++) {
     closeButtons[i].addEventListener('click', hideModal);
 }
-
 document.querySelector('#modal-overlay').addEventListener('click', hideModal);
-
 for (var i = 0; i < modals.length; i++) {
     modals[i].addEventListener('click', function (event) {
         event.stopPropagation();
     });
 }
 
-//Moduals
-/*
-var modals = document.querySelectorAll('.modal');
+// FUNKCJA DLA NAGŁOWKA
 
-function showModal(event) {
-    event.preventDefault();
-    var id = "#" + event.target.href.split("#")[1];
-    document.querySelector('#modal-overlay').classList.add('show');
-    document.querySelector(id).classList.add('show');
+var text = document.querySelector('.text');
+var spnCursor = document.querySelector('.cursor');
+var txt = 'ROCK-SCISSORS-PAPER';
+var indexText = 0;
+var time = 100;
+
+function addLetter() {
+    text.textContent += txt[indexText];
+    indexText++;
+    if (indexText === txt.length) {
+        clearInterval(index)
+    };
 };
+var index = setInterval(addLetter, time);
 
-var modalLinks = document.querySelectorAll('.show-modal');
-for (var i = 0; i < modalLinks.length; i++) {
-    modalLinks[i].addEventListener('click', showModal);
+function cursor() {
+    spnCursor.classList.toggle('active');
 }
-
-var hideModal = function (event) {
-    event.preventDefault();
-    document.querySelector('#modal-overlay').classList.remove('show');
-};
-
-var closeButtons = document.querySelectorAll('.modal .close');
-for (var i = 0; i < closeButtons.length; i++) {
-    closeButtons[i].addEventListener('click', hideModal);
-}
-
-document.querySelector('#modal-overlay').addEventListener('click', hideModal);
-var modals = document.querySelectorAll('.modal');
-for (var i = 0; i < modals.length; i++) {
-    modals[i].addEventListener('click', function (event) {
-        event.stopPropagation();
-    });
-}
-*/
+setInterval(cursor, 500);

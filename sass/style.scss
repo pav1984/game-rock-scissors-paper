@@ -1,59 +1,239 @@
-     .container {
-         max-width: 400px;
-         margin: 0 auto;
-     }
+    @import url('https://fonts.googleapis.com/css?family=Cardo:400,400i,700');
 
-     .overlay {
-         display: none;
-         position: fixed;
-         top: 0;
-         left: 0;
-         width: 100%;
-         height: 100%;
-         background: rgba(0, 0, 0, 0.7);
+    body {
+        box-sizing: border-box;
+        font-family: 'Cardo', serif;
+        margin: 0 auto;
+        background-color: #F5E4C3;
+        overflow-x: hidden;
+    }
 
-         &.show {
-             display: block;
-         }
-     }
+    .text-style {
+        text-align: center;
+        font-size: 45px;
+        font-weight: bold;
+        margin-top: 20px;
+    }
 
-     .modal {
-         display: none;
-         background: #fff;
-         width: 200px;
-         position: absolute;
-         top: 50%;
-         left: 50%;
-         transform: translate3d(-50%, -50%, 0);
+    .rules {
+        text-align: center;
+        font-size: 25px;
 
-         &.show {
-             display: block;
-         }
+        button {
+            padding: 15px 40px;
+            margin-bottom: 20px;
+            border: none;
+            border-radius: 10px;
+            font-weight: 700;
+            background-color: #5b2e35;
+            color: #fff;
+            font-size: 16px;
+            outline: none;
 
-         .close {
-             position: absolute;
-             right: 0;
-             top: 0;
-             padding: 5px;
-             color: #000;
-             text-decoration: none;
-         }
+            &:hover {
+                opacity: 0.6;
+                cursor: pointer;
+            }
+        }
+    }
 
-         header {
-             font-size: 20px;
-             line-height: 30px;
-             min-height: 30px;
-             font-weight: bold;
-             padding: 0 30px;
-         }
+    img {
+        width: 250px;
+        height: 270px;
+    }
 
-         .content {
-             min-height: 30px;
-             padding: 5px 30px;
-         }
-     }
-     #roundsInfo,
-     #result {
-         font-size: 20px;
-         color: #3f4042;
-     }
+    .btn-panel {
+        text-align: center;
+
+        button {
+            padding: 15px 40px;
+            margin: 10px 10px;
+            border: none;
+            border-radius: 10px;
+            font-weight: 700;
+            background-color: #5b2e35;
+            color: #fff;
+            font-size: 16px;
+            width: 160px;
+            outline: none;
+
+            &:hover {
+                opacity: 0.6;
+                cursor: pointer;
+            }
+        }
+    }
+
+    .panel-left {
+        font-size: 25px;
+        font-weight: 700;
+        display: flex;
+        max-width: 1280px;
+        width: 100%;
+        padding-left: 15px;
+        padding-right: 15px;
+        justify-content: space-around;
+        margin-top: 20px;
+
+        .single-game {
+            text-align: center;
+            width: 33%;
+
+            h2 {
+                font-size: 30px;
+            }
+
+            h3 {
+                margin: 0;
+            }
+        }
+
+        .img-div {
+            width: 33%;
+            text-align: center;
+        }
+    }
+
+    #output {
+        display: flex;
+        justify-content: center;
+        font-size: 25px;
+        font-weight: 700;
+        width: 33%;
+
+        h3 {
+            margin: 0;
+        }
+    }
+
+    .column {
+        margin-right: 130px;
+
+        p {
+            display: flex;
+            justify-content: space-between;
+        }
+    }
+
+    .overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.7);
+
+        &.show {
+            display: block;
+        }
+    }
+
+    .modal {
+        display: none;
+        background: #fff;
+        width: 70%;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate3d(-50%, -50%, 0);
+        text-align: center;
+
+        &.show {
+            display: block;
+        }
+
+        .close {
+            position: absolute;
+            right: 0;
+            top: 0;
+            padding: 5px;
+            color: #000;
+            text-decoration: none;
+        }
+
+        .content {
+            min-height: 30px;
+            padding: 5px 30px;
+        }
+    }
+
+    .start-modal {
+        width: 40%;
+        border-radius: 10px;
+        font-size: 18px;
+        font-weight: 700;
+        background-color: #F5E4C3;
+        .new-game {
+            padding: 15px 40px;
+            margin: 10px 10px;
+            border: none;
+            border-radius: 10px;
+            font-weight: 700;
+            background-color: #5b2e35;
+            color: #fff;
+            font-size: 16px;
+            outline: none;
+            &:hover {
+                cursor: pointer;
+                opacity: 0.6;
+            }
+        }
+
+        input {
+            padding: 10px 30px;
+            border: none;
+            margin: 10px 0;
+            font-size: 17px;
+            border-radius: 4px;
+        }
+    }
+
+    .erorr-modal {
+        width: 40%;
+        border-radius: 10px;
+        font-size: 18px;
+        font-weight: 700;
+        background-color: #F5E4C3;
+    }
+
+    .result-modal {
+        border-radius: 10px;
+        font-size: 18px;
+        font-weight: 700;
+        background-color: #F5E4C3;
+        text-transform: uppercase;
+        width: 90%;
+        line-height: 2.5;
+
+        h1 {
+            margin: 0 auto;
+        }
+    }
+
+    #infoRounds {
+        font-size: 25px;
+        font-weight: 700;
+    }
+
+    .cursor {
+        opacity: 0;
+        transition: .3s;
+
+    }
+
+    .active {
+        opacity: 1;
+    }
+
+    .choice {
+        color: #FF0000;
+    }
+
+    table {
+        width: 100%;
+
+        th {
+            color: #34A7B2;
+        }
+    }
